@@ -1,29 +1,22 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/php
 {
-	"name": "PHP",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/php:3-8.3-trixie",
+  "name": "Laravel",
 
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+  "image": "mcr.microsoft.com/devcontainers/php:3-8.3-trixie",
 
-	// Configure tool-specific properties.
-	// "customizations": {},
+  "forwardPorts": [8000, 5173],
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [
-		8080
-	],
-	"features": {
-		"ghcr.io/yassinedoghri/devcontainers/php-extensions-installer:1": {
-			"extensions": ["intl","zip"]
-		}
-	}
+  "features": {
+    "ghcr.io/devcontainers/features/php:1": {
+      "version": "8.3",
+      "installComposer": true,
+      "extensions": [
+        "intl",
+        "zip"
+      ]
+    },
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html"
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  }
 }
