@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    && docker-php-ext-install intl zip
+    && docker-php-ext-install intl zip pcntl

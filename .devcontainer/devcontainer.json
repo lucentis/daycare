@@ -5,5 +5,11 @@
 		"dockerfile": "Dockerfile"
 	},
 
-	"forwardPorts": [8000, 5173]
+	"forwardPorts": [8000, 5173],
+
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "20"
+		}
+	}
 }
