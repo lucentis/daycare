@@ -17,7 +17,7 @@
 	],
 	"features": {
 		"ghcr.io/yassinedoghri/devcontainers/php-extensions-installer:1": {
-			"extensions": "intl, zip"
+			"extensions": ["intl","zip"]
 		}
 	}
 
