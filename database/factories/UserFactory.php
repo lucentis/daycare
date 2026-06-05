@@ -7,21 +7,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends Factory<User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
+    protected $model = User::class;
+
     protected static ?string $password;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
@@ -33,13 +24,38 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('admin');
+        });
+    }
+
+    public function director(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('director');
+        });
+    }
+
+    public function staff(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('staff');
+        });
+    }
+
+    public function parent(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('parent');
+        });
     }
 }

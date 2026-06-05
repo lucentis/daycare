@@ -5,20 +5,20 @@ namespace Database\Factories;
 use App\Models\Medication;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<Medication>
- */
 class MedicationFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Medication::class;
+
+    protected static array $medications = [
+        'Doliprane', 'Advil', 'Amoxicillin', 'Ventolin',
+        'Cetirizine', 'Ibuprofen', 'Paracetamol', 'Nurofen',
+        'Augmentin', 'Singulair', 'Flixotide', 'Aerius',
+    ];
+
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->unique()->randomElement(self::$medications),
         ];
     }
 }
