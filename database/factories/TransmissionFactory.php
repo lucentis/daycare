@@ -8,7 +8,9 @@ use App\Enums\MealQuantity;
 use App\Enums\MealType;
 use App\Enums\NapQuality;
 use App\Enums\TransmissionType;
+use App\Models\Nursery;
 use App\Models\Transmission;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TransmissionFactory extends Factory
@@ -24,6 +26,8 @@ class TransmissionFactory extends Factory
             'payload' => $this->generatePayload($type),
             'notes' => fake()->optional(0.3)->sentence(),
             'noted_at' => fake()->dateTimeBetween('-30 days', 'now'),
+            'nursery_id' => Nursery::factory(),
+            'author_id' => User::factory()->staff()
         ];
     }
 

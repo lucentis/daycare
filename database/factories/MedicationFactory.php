@@ -18,7 +18,7 @@ class MedicationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->randomElement(self::$medications),
+            'name' => fake()->sentence(),
         ];
     }
 }

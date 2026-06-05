@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\AllergySeverity;
 use App\Enums\ChildUserRelation;
+use App\Enums\NurseryUserRole;
 use App\Models\Allergy;
 use App\Models\Child;
 use App\Models\Medication;
@@ -24,11 +25,12 @@ class DatabaseSeeder extends Seeder
         User::factory()
             ->count(3)
             ->director()
-            ->has(
+            ->hasAttached(
                 Nursery::factory()
                     ->count(2)
-                    ->has(
+                    ->hasAttached(
                         User::factory()->count(5)->staff(),
+                        ['role' => NurseryUserRole::Staff->value],
                         'staff'
                     )
                     ->has(
@@ -54,17 +56,21 @@ class DatabaseSeeder extends Seeder
                                 ],
                                 'medications'
                             )
-                            ->has(
+                            ->hasAttached(
                                 User::factory()->count(2)->parent(),
+                                ['relation' => ChildUserRelation::Father->value],
                                 'parents'
                             )
                             ->has(
-                                Transmission::factory()->count(20),
+                                Transmission::factory()->count(20)->state(function ($attributes, $child) {
+                                    return ['nursery_id' => $child->nursery_id];
+                                }),
                                 'transmissions'
                             ),
                         'children'
                     ),
-                'nurseries'
+                    ['role' => NurseryUserRole::Director->value],
+                    'nurseries'
             )
             ->create();
     }
