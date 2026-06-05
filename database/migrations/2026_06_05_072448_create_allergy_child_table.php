@@ -6,20 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('allergy_child', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('child_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('allergy_id')->constrained()->cascadeOnDelete();
+            $table->string('severity');
+            $table->text('notes')->nullable();
             $table->timestamps();
+
+            $table->unique(['child_id', 'allergy_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('allergy_child');
