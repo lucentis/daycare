@@ -27,6 +27,7 @@ class Child extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->using(ChildUser::class)
             ->withPivot('relation')
             ->withTimestamps();
     }
@@ -34,6 +35,7 @@ class Child extends Model
     public function parents(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->using(ChildUser::class)
             ->withPivot('relation')
             ->withTimestamps();
     }
@@ -46,6 +48,7 @@ class Child extends Model
     public function allergies(): BelongsToMany
     {
         return $this->belongsToMany(Allergy::class)
+            ->using(AllergyChild::class)
             ->withPivot('severity', 'notes')
             ->withTimestamps();
     }
@@ -53,6 +56,7 @@ class Child extends Model
     public function medications(): BelongsToMany
     {
         return $this->belongsToMany(Medication::class)
+            ->using(ChildMedication::class)
             ->withPivot('dosage', 'frequency', 'notes', 'active', 'started_at', 'ended_at')
             ->withTimestamps();
     }
@@ -60,6 +64,7 @@ class Child extends Model
     public function activeMedications(): BelongsToMany
     {
         return $this->belongsToMany(Medication::class)
+            ->using(ChildMedication::class)
             ->withPivot('dosage', 'frequency', 'notes', 'active', 'started_at', 'ended_at')
             ->wherePivot('active', true)
             ->withTimestamps();

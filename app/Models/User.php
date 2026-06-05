@@ -30,6 +30,7 @@ class User extends Authenticatable
     public function nurseries(): BelongsToMany
     {
         return $this->belongsToMany(Nursery::class)
+            ->using(NurseryUser::class)
             ->withPivot('role')
             ->withTimestamps();
     }
@@ -37,6 +38,7 @@ class User extends Authenticatable
     public function children(): BelongsToMany
     {
         return $this->belongsToMany(Child::class)
+            ->using(ChildUser::class)
             ->withPivot('relation')
             ->withTimestamps();
     }

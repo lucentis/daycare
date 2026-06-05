@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\NurseryUserRole;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,7 @@ class Nursery extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->using(NurseryUser::class)
             ->withPivot('role')
             ->withTimestamps();
     }
@@ -28,18 +30,20 @@ class Nursery extends Model
     public function directors(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->using(NurseryUser::class)
             ->withPivot('role')
-            ->wherePivot('role', 'director')
+            ->wherePivot('role', NurseryUserRole::Director)
             ->withTimestamps();
     }
 
     public function staff(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->using(NurseryUser::class)
             ->withPivot('role')
-            ->wherePivot('role', 'staff')
+            ->wherePivot('role', NurseryUserRole::Staff)
             ->withTimestamps();
-    }
+    }   
 
     public function children(): HasMany
     {
