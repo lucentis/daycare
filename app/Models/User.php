@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,10 +17,20 @@ use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable, SoftDeletes, HasRoles;
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return match($panel->getId()) {
+            'admin' => $this->hasRole('admin'),
+            'director' => $this->hasRole('director'),
+            'staff' => $this->hasRole('staff'),
+            default => true,
+        };
+    }
+    
     protected function casts(): array
     {
         return [

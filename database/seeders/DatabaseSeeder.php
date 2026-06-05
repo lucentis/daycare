@@ -22,6 +22,21 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
         ]);
 
+        User::factory()->director()->create([
+            'name' => 'director',
+            'email' => 'director@gmail.com',
+        ]);
+
+        User::factory()->staff()->create([
+            'name' => 'staff',
+            'email' => 'staff@gmail.com',
+        ]);
+
+        User::factory()->parent()->create([
+            'name' => 'parent',
+            'email' => 'parent@gmail.com',
+        ]);
+
         User::factory()
             ->count(3)
             ->director()
@@ -29,7 +44,7 @@ class DatabaseSeeder extends Seeder
                 Nursery::factory()
                     ->count(2)
                     ->hasAttached(
-                        User::factory()->count(5)->staff(),
+                        User::factory()->count(3)->staff(),
                         ['role' => NurseryUserRole::Staff->value],
                         'staff'
                     )
@@ -62,7 +77,7 @@ class DatabaseSeeder extends Seeder
                                 'parents'
                             )
                             ->has(
-                                Transmission::factory()->count(20)->state(function ($attributes, $child) {
+                                Transmission::factory()->count(10)->state(function ($attributes, $child) {
                                     return ['nursery_id' => $child->nursery_id];
                                 }),
                                 'transmissions'
