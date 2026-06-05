@@ -4,62 +4,40 @@ namespace App\Policies;
 
 use App\Models\Nursery;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class NurseryPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+    // admin can do everything
+    public function before(User $user): ?bool
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasRole('director');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
     public function view(User $user, Nursery $nursery): bool
     {
-        return false;
+        return $user->nurseries->contains($nursery);
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
     public function create(User $user): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, Nursery $nursery): bool
     {
-        return false;
+        return $user->nurseries->contains($nursery);
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function delete(User $user, Nursery $nursery): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Nursery $nursery): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Nursery $nursery): bool
     {
         return false;
     }

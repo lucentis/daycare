@@ -4,63 +4,51 @@ namespace App\Policies;
 
 use App\Models\Child;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ChildPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+    public function before(User $user): ?bool
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasAnyRole(['director', 'staff', 'parent']);
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
     public function view(User $user, Child $child): bool
     {
-        return false;
+        // parent can only view their own children
+        if ($user->hasRole('parent')) {
+            return $user->children->contains($child);
+        }
+
+        // director and staff can view children in their nurseries
+        return $user->nurseries->contains($child->nursery_id);
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasAnyRole(['director', 'staff']);
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, Child $child): bool
     {
+        if ($user->hasRole('director')) {
+            return $user->nurseries->contains($child->nursery_id);
+        }
+
         return false;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function delete(User $user, Child $child): bool
     {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Child $child): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Child $child): bool
-    {
-        return false;
+        return $user->hasRole('director') &&
+            $user->nurseries->contains($child->nursery_id);
     }
 }

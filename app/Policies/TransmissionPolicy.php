@@ -4,63 +4,50 @@ namespace App\Policies;
 
 use App\Models\Transmission;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class TransmissionPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+    public function before(User $user): ?bool
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasAnyRole(['director', 'staff', 'parent']);
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
     public function view(User $user, Transmission $transmission): bool
     {
-        return false;
+        if ($user->hasRole('parent')) {
+            return $user->children->contains($transmission->child_id);
+        }
+
+        return $user->nurseries->contains($transmission->nursery_id);
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasAnyRole(['director', 'staff']);
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, Transmission $transmission): bool
     {
-        return false;
+        // only the author can update
+        return $transmission->author_id === $user->id;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function delete(User $user, Transmission $transmission): bool
     {
-        return false;
-    }
+        if ($user->hasRole('director')) {
+            return $user->nurseries->contains($transmission->nursery_id);
+        }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Transmission $transmission): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Transmission $transmission): bool
-    {
-        return false;
+        // staff can only delete their own
+        return $transmission->author_id === $user->id;
     }
 }
