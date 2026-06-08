@@ -86,4 +86,9 @@ class Child extends Model
             $query->where('users.id', $userId);
         });
     }
+
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }

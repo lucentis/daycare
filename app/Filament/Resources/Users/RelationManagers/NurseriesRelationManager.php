@@ -18,6 +18,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class NurseriesRelationManager extends RelationManager
 {
@@ -85,4 +86,9 @@ class NurseriesRelationManager extends RelationManager
                 ]),
             ]);
     }
+
+    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
+{
+    return $ownerRecord->hasAnyRole(['director', 'staff']);
+}
 }

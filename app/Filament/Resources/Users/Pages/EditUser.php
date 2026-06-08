@@ -27,4 +27,9 @@ class EditUser extends EditRecord
     {
         return true;
     }
+
+    public function getContentTabLabel(): ?string
+    {
+        return 'Informations';
+    }
 }
