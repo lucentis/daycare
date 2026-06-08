@@ -18,6 +18,11 @@ class NurseriesRelationManager extends RelationManager
 
     protected static ?string $relatedResource = NurseryResource::class;
 
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return 'Crèches'; // ou ce que tu veux
+    }
+
     public function table(Table $table): Table
     {
         return $table

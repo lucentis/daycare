@@ -16,4 +16,9 @@ class ViewNursery extends ViewRecord
             EditAction::make(),
         ];
     }
+
+    public function getContentTabLabel(): ?string
+    {
+        return 'Crèches';
+    }
 }

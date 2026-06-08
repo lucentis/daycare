@@ -15,42 +15,35 @@ class UserForm
     {
         return $schema
             ->components([
-                Tabs::make()
-                    ->tabs([
-                        Tab::make('Information')
-                            ->schema([
-                                TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
 
-                                TextInput::make('email')
-                                    ->email()
-                                    ->required()
-                                    ->unique(
-                                        table: 'users',
-                                        column: 'email',
-                                        ignoreRecord: true,
-                                        modifyRuleUsing: fn ($rule) => $rule->whereNull('deleted_at'),
-                                    )
-                                    ->maxLength(255),
+                TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->unique(
+                        table: 'users',
+                        column: 'email',
+                        ignoreRecord: true,
+                        modifyRuleUsing: fn ($rule) => $rule->whereNull('deleted_at'),
+                    )
+                    ->maxLength(255),
 
-                                TextInput::make('password')
-                                    ->password()
-                                    ->required(fn (string $operation) => $operation === 'create')
-                                    ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
-                                    ->dehydrated(fn ($state) => filled($state))
-                                    ->maxLength(255),
+                TextInput::make('password')
+                    ->password()
+                    ->required(fn (string $operation) => $operation === 'create')
+                    ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->maxLength(255),
 
-                                DateTimePicker::make('email_verified_at')
-                                    ->label('Email verified at'),
+                DateTimePicker::make('email_verified_at')
+                    ->label('Email verified at'),
 
-                                Select::make('roles')
-                                    ->relationship('roles', 'name')
-                                    ->preload()
-                                    ->required(),
-                            ]),
-                    ])
-                    ->columnSpanFull(),
+                Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->preload()
+                    ->required(),
             ]);
     }
 }
