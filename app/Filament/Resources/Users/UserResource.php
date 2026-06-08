@@ -46,7 +46,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\NurseriesRelationManager::class,
+            RelationManagers\ChildrenRelationManager::class,
         ];
     }
 
