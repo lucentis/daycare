@@ -29,7 +29,8 @@ class ChildrenTable
                     ->date()
                     ->sortable(),
                 TextColumn::make('photo')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('active')
                     ->boolean(),
                 TextColumn::make('created_at')

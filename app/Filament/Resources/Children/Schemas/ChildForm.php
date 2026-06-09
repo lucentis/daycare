@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Children\Schemas;
 
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -23,7 +24,9 @@ class ChildForm
                     ->required(),
                 DatePicker::make('date_of_birth')
                     ->required(),
-                TextInput::make('photo'),
+                FileUpload::make('photo')
+                    ->image()
+                    ->nullable(),
                 Toggle::make('active')
                     ->required(),
             ]);
