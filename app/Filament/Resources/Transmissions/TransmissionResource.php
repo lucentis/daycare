@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TransmissionResource extends Resource
 {
@@ -23,6 +24,11 @@ class TransmissionResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'type';
+
+    public static function getRecordTitle(?Model $record): string
+    {
+        return $record->type->value . ' - ' . $record->child->full_name;
+    }
 
     public static function form(Schema $schema): Schema
     {
