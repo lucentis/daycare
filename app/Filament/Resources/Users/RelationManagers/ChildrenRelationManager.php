@@ -17,6 +17,12 @@ class ChildrenRelationManager extends RelationManager
 
     protected static ?string $relatedResource = ChildResource::class;
 
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return 'Enfants';
+    }
+
+
     public function table(Table $table): Table
     {
         return $table

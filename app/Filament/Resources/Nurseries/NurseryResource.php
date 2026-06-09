@@ -26,6 +26,8 @@ class NurseryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'crèche';
+
     public static function form(Schema $schema): Schema
     {
         return NurseryForm::configure($schema);
@@ -44,7 +46,8 @@ class NurseryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\UserRelationManager::class,
+            RelationManagers\ChildrenRelationManager::class,
         ];
     }
 

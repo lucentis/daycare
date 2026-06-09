@@ -17,8 +17,13 @@ class ViewNursery extends ViewRecord
         ];
     }
 
+    public function hasCombinedRelationManagerTabsWithContent(): bool
+    {
+        return true;
+    }
+
     public function getContentTabLabel(): ?string
     {
-        return 'Crèches';
-    }
+        return 'Information';
+    }   
 }

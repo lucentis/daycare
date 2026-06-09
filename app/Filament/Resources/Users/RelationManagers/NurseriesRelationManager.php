@@ -20,7 +20,7 @@ class NurseriesRelationManager extends RelationManager
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
-        return 'Crèches'; // ou ce que tu veux
+        return 'Crèches';
     }
 
     public function table(Table $table): Table
