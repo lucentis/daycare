@@ -22,9 +22,12 @@ class NurseryForm
                 TextInput::make('email')
                     ->label('Email address')
                     ->email()
+                    ->unique(ignoreRecord: true)
+                    ->maxLength(255)
                     ->required(),
                 TextInput::make('capacity')
                     ->required()
+                    ->minValue(1)
                     ->numeric(),
                 Toggle::make('active')
                     ->required(),
