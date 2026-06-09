@@ -16,4 +16,14 @@ class ViewChild extends ViewRecord
             EditAction::make(),
         ];
     }
+
+    public function hasCombinedRelationManagerTabsWithContent(): bool
+    {
+        return true;
+    }
+
+    public function getContentTabLabel(): ?string
+    {
+        return 'Information';
+    }
 }

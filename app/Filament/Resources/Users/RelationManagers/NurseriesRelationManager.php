@@ -23,11 +23,17 @@ class NurseriesRelationManager extends RelationManager
         return 'Crèches';
     }
 
+    public static function getBadge(Model $ownerRecord, string $pageClass): ?string
+    {
+        return $ownerRecord->nurseries()->count();
+    }
+
     public function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nom')
                     ->searchable(),
                 TextColumn::make('pivot.role')
                     ->label('Role')

@@ -20,20 +20,25 @@ class NurseriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nom')
                     ->searchable(),
                 TextColumn::make('address')
+                    ->label('Adresse')
                     ->searchable(),
                 TextColumn::make('phone')
+                    ->label('Téléphone')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Adresse email')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('capacity')
+                    ->label('Capacité')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('active')
+                    ->label('Actif')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()

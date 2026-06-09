@@ -22,6 +22,10 @@ class ChildrenRelationManager extends RelationManager
         return 'Enfants';
     }
 
+    public static function getBadge(Model $ownerRecord, string $pageClass): ?string
+    {
+        return $ownerRecord->children()->count();
+    }
 
     public function table(Table $table): Table
     {

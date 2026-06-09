@@ -26,6 +26,8 @@ class ChildResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'full_name';
 
+    protected static ?string $modelLabel = 'enfant';
+
     public static function form(Schema $schema): Schema
     {
         return ChildForm::configure($schema);
@@ -44,7 +46,10 @@ class ChildResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ParentsRelationManager::class,
+            RelationManagers\TransmissionsRelationManager::class,
+            RelationManagers\AllergiesRelationManager::class,
+            RelationManagers\MedicationsRelationManager::class,
         ];
     }
 
