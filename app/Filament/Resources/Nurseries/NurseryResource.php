@@ -28,6 +28,8 @@ class NurseryResource extends Resource
 
     protected static ?string $modelLabel = 'crèche';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Schema $schema): Schema
     {
         return NurseryForm::configure($schema);

@@ -28,6 +28,8 @@ class ChildResource extends Resource
 
     protected static ?string $modelLabel = 'enfant';
 
+    protected static ?int $navigationSort = 3;
+
     public static function form(Schema $schema): Schema
     {
         return ChildForm::configure($schema);

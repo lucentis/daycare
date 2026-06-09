@@ -25,6 +25,8 @@ class TransmissionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'type';
 
+    protected static ?int $navigationSort = 4;
+
     public static function getRecordTitle(?Model $record): string
     {
         return $record->type->value . ' - ' . $record->child->full_name;
