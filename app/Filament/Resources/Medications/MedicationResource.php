@@ -21,7 +21,7 @@ class MedicationResource extends Resource
 {
     protected static ?string $model = Medication::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBeaker;
 
     protected static ?string $recordTitleAttribute = 'name';
 

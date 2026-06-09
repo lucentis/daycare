@@ -21,7 +21,7 @@ class TransmissionResource extends Resource
 {
     protected static ?string $model = Transmission::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
     protected static ?string $recordTitleAttribute = 'type';
 

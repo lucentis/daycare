@@ -21,7 +21,7 @@ class AllergyResource extends Resource
 {
     protected static ?string $model = Allergy::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedExclamationTriangle;
 
     protected static ?string $recordTitleAttribute = 'name';
 

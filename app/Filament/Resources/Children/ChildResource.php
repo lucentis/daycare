@@ -22,7 +22,7 @@ class ChildResource extends Resource
 {
     protected static ?string $model = Child::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFaceSmile;
 
     protected static ?string $recordTitleAttribute = 'full_name';
 
