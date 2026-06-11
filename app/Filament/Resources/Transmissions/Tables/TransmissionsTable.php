@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Transmissions\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -15,7 +17,7 @@ class TransmissionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('child.id')
+                TextColumn::make('child.full_name')
                     ->searchable(),
                 TextColumn::make('nursery.name')
                     ->searchable(),
@@ -46,6 +48,8 @@ class TransmissionsTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
