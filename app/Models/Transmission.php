@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['child_id', ])]
+#[Fillable(['child_id', 'author_id', 'nursery_id', 'type', 'payload'])]
 class Transmission extends Model
 {
     use HasFactory;

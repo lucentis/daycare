@@ -16,7 +16,6 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
 class TransmissionForm
@@ -31,11 +30,6 @@ class TransmissionForm
                     ->searchable()
                     ->preload()
                     ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->first_name} {$record->last_name}"),
-
-                Select::make('nursery_id')
-                    ->relationship('nursery', 'name')
-                    ->required()
-                    ->preload(),
 
                 Select::make('author_id')
                     ->relationship('author', 'name')
