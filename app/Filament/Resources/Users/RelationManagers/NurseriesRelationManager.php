@@ -56,4 +56,9 @@ class NurseriesRelationManager extends RelationManager
     {
         return $ownerRecord->hasAnyRole(['director', 'staff']);
     }
+
+    public function isReadOnly(): bool
+    {
+        return false;
+    } 
 }

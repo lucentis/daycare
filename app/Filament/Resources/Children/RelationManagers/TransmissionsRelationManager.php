@@ -20,4 +20,9 @@ class TransmissionsRelationManager extends RelationManager
                 CreateAction::make(),
             ]);
     }
+
+    public function isReadOnly(): bool
+    {
+        return false;
+    }
 }

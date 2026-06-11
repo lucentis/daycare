@@ -26,4 +26,9 @@ class ChildrenRelationManager extends RelationManager
                 CreateAction::make(),
             ]);
     }
+
+    public function isReadOnly(): bool
+    {
+        return false;
+    }
 }

@@ -47,4 +47,9 @@ class ChildrenRelationManager extends RelationManager
     {
         return $ownerRecord->hasAnyRole(['parent']);
     }
+
+    public function isReadOnly(): bool
+    {
+        return false;
+    }
 }
