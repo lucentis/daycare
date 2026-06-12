@@ -27,6 +27,10 @@ class ListUsers extends ListRecords
             'all' => Tab::make('Tous')
                 ->icon(Heroicon::OutlinedUsers)
                 ->badge(User::count()),
+            'client' => Tab::make('Clients')
+                ->icon(Heroicon::AcademicCap)
+                ->badge(User::role('client')->count())
+                ->modifyQueryUsing(fn (Builder $query) => $query->role('client')),
             'admins' => Tab::make('Admins')
                 ->icon(Heroicon::OutlinedShieldCheck)
                 ->badge(User::role('admin')->count())

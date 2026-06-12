@@ -30,9 +30,9 @@ class UsersTable
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'admin' => 'danger',
-                        'director' => 'warning',
-                        'staff' => 'success',
-                        'parent' => 'info',
+                        'client' => 'warning',
+                        'director' => 'success',
+                        'staff' => 'info',
                         default => 'gray',
                     }),
                 TextColumn::make('email_verified_at')
