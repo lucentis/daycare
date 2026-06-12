@@ -22,6 +22,11 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
         ]);
 
+        User::factory()->client()->create([
+            'name' => 'client',
+            'email' => 'client@gmail.com',
+        ]);
+
         User::factory()->director()->create([
             'name' => 'director',
             'email' => 'director@gmail.com',
@@ -38,19 +43,24 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()
-            ->count(3)
-            ->director()
+            ->count(2)
+            ->client()
             ->hasAttached(
                 Nursery::factory()
                     ->count(2)
                     ->hasAttached(
-                        User::factory()->count(3)->staff(),
+                        User::factory()->count(1)->director(),
+                        ['role' => NurseryUserRole::Director->value],
+                        'directors'
+                    )
+                    ->hasAttached(
+                        User::factory()->count(2)->staff(),
                         ['role' => NurseryUserRole::Staff->value],
                         'staff'
                     )
                     ->has(
                         Child::factory()
-                            ->count(10)
+                            ->count(5)
                             ->hasAttached(
                                 Allergy::factory()->count(2),
                                 [
@@ -77,16 +87,15 @@ class DatabaseSeeder extends Seeder
                                 'parents'
                             )
                             ->has(
-                                Transmission::factory()->count(10)->state(function ($attributes, $child) {
+                                Transmission::factory()->count(5)->state(function ($attributes, $child) {
                                     return ['nursery_id' => $child->nursery_id];
                                 }),
                                 'transmissions'
                             ),
                         'children'
                     ),
-                    ['role' => NurseryUserRole::Director->value],
-                    'nurseries'
-            )
-            ->create();
+                ['role' => NurseryUserRole::Client->value],
+                'nurseries'
+            )->create();
     }
 }

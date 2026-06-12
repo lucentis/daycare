@@ -6,6 +6,7 @@ use App\Enums\NurseryUserRole;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +25,15 @@ class Nursery extends Model
         return $this->belongsToMany(User::class)
             ->using(NurseryUser::class)
             ->withPivot('role')
+            ->withTimestamps();
+    }
+
+    public function client(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)
+            ->using(NurseryUser::class)
+            ->withPivot('role')
+            ->wherePivot('role', NurseryUserRole::Client)
             ->withTimestamps();
     }
 

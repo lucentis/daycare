@@ -60,6 +60,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Transmission::class, 'author_id');
     }
 
+    public function scopeClients(Builder $query): Builder
+    {
+        return $query->role('client');
+    }
+
     public function scopeDirectors(Builder $query): Builder
     {
         return $query->role('director');
