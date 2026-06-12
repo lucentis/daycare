@@ -31,7 +31,6 @@ class ChildrenRelationManager extends RelationManager
     {
         return $table
             ->headerActions([
-                CreateAction::make(),
                 AttachAction::make()
                     ->preloadRecordSelect()
                     ->schema(fn (AttachAction $action) => [

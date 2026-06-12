@@ -11,6 +11,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class NurseriesRelationManager extends RelationManager
 {
@@ -48,13 +49,14 @@ class NurseriesRelationManager extends RelationManager
                             ->options(NurseryUserRole::class)
                             ->required(),
                     ]),
-                CreateAction::make(),
+                CreateAction::make()
+                    ->visible($this->getOwnerRecord()->hasRole('client')),
             ]);
     }
 
     public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
     {
-        return $ownerRecord->hasAnyRole(['director', 'staff']);
+        return $ownerRecord->hasAnyRole(['client', 'director', 'staff']);
     }
 
     public function isReadOnly(): bool
