@@ -3,9 +3,10 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Widgets\AdminStatsOverview;
-use App\Filament\Widgets\ChildrenWithoutTransmissionTable;
-use App\Filament\Widgets\RecentTransmissionsTable;
-use App\Filament\Widgets\TransmissionsChart;
+use App\Filament\Widgets\ClientsOverviewTable;
+use App\Filament\Widgets\ClientsWithoutNurseryTable;
+use App\Filament\Widgets\GrowthChart;
+use App\Filament\Widgets\InactiveNurseriesTable;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -41,9 +42,10 @@ class AdminPanelProvider extends PanelProvider
             // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AdminStatsOverview::class,
-                TransmissionsChart::class,
-                RecentTransmissionsTable::class,
-                ChildrenWithoutTransmissionTable::class,
+                ClientsOverviewTable::class,
+                GrowthChart::class,
+                InactiveNurseriesTable::class,
+                ClientsWithoutNurseryTable::class,
             ])
             ->middleware([
                 EncryptCookies::class,

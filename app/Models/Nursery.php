@@ -28,7 +28,7 @@ class Nursery extends Model
             ->withTimestamps();
     }
 
-    public function client(): BelongsToMany
+    public function clients(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
             ->using(NurseryUser::class)
