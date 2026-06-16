@@ -23,7 +23,7 @@ class UserRelationManager extends RelationManager
                 CreateAction::make(),
                 AttachAction::make()
                     ->preloadRecordSelect()
-                    ->recordSelectOptionsQuery(fn ($query) => $query->role(['director', 'staff']))
+                    ->recordSelectOptionsQuery(fn ($query) => $query->role(['director', 'staff', 'client']))
                     ->schema(fn (AttachAction $action) => [
                         $action->getRecordSelect(),
                     ])

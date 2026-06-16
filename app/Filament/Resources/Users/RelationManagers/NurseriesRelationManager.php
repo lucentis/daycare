@@ -6,6 +6,9 @@ use App\Enums\NurseryUserRole;
 use App\Filament\Resources\Nurseries\NurseryResource;
 use Filament\Actions\AttachAction;
 use Filament\Actions\CreateAction;
+use Filament\Actions\DetachAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -71,6 +74,12 @@ class NurseriesRelationManager extends RelationManager
                     })
                     ->createAnother(false) 
                     ->visible(fn () => $this->getOwnerRecord()->hasRole('client'))
+            ])
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+                DetachAction::make()
+                    ->requiresConfirmation(),
             ]);
     }
 

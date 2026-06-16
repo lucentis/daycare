@@ -6,6 +6,9 @@ use App\Enums\ChildUserRelation;
 use App\Filament\Resources\Children\ChildResource;
 use Filament\Actions\AttachAction;
 use Filament\Actions\CreateAction;
+use Filament\Actions\DetachAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Table;
@@ -39,6 +42,12 @@ class ChildrenRelationManager extends RelationManager
                             ->options(ChildUserRelation::class)
                             ->required(),
                     ]),
+            ])
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+                DetachAction::make()
+                    ->requiresConfirmation(),
             ]);
     }
 
