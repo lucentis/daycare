@@ -8,10 +8,11 @@ use Filament\Actions\AttachAction;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class NurseriesRelationManager extends RelationManager
 {
@@ -29,6 +30,15 @@ class NurseriesRelationManager extends RelationManager
         return $ownerRecord->nurseries()->count();
     }
 
+    // public function form(Schema $schema): Schema
+    // {
+    //     return $schema
+    //         ->components([
+    //             Select::make('role')
+    //                 ->default(NurseryUserRole::Client->value),
+    //         ]);
+    // }
+
     public function table(Table $table): Table
     {
         return $table
@@ -39,6 +49,9 @@ class NurseriesRelationManager extends RelationManager
                 TextColumn::make('pivot.role')
                     ->label('Role')
                     ->badge(),
+                IconColumn::make('active')
+                    ->label('Actif')
+                    ->boolean(),
             ])
             ->headerActions([
                 AttachAction::make()
@@ -50,7 +63,14 @@ class NurseriesRelationManager extends RelationManager
                             ->required(),
                     ]),
                 CreateAction::make()
-                    ->visible($this->getOwnerRecord()->hasRole('client')),
+                    ->modal()
+                    ->mutateDataUsing(function (array $data): array {
+                        $data['role'] = NurseryUserRole::Client->value;
+
+                        return $data;
+                    })
+                    ->createAnother(false) 
+                    ->visible(fn () => $this->getOwnerRecord()->hasRole('client'))
             ]);
     }
 
