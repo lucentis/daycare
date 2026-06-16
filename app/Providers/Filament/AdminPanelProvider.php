@@ -7,6 +7,8 @@ use App\Filament\Widgets\ClientsOverviewTable;
 use App\Filament\Widgets\ClientsWithoutNurseryTable;
 use App\Filament\Widgets\GrowthChart;
 use App\Filament\Widgets\InactiveNurseriesTable;
+use App\Filament\Widgets\RecentlyDeletedTable;
+use App\Filament\Widgets\UnverifiedUsersTable;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -44,8 +46,10 @@ class AdminPanelProvider extends PanelProvider
                 AdminStatsOverview::class,
                 ClientsOverviewTable::class,
                 GrowthChart::class,
-                InactiveNurseriesTable::class,
                 ClientsWithoutNurseryTable::class,
+                UnverifiedUsersTable::class,
+                RecentlyDeletedTable::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,
