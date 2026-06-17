@@ -20,7 +20,14 @@ class UserRelationManager extends RelationManager
     {
         return $table
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                    ->modal()
+                    ->mutateDataUsing(function (array $data): array {
+                        $data['role'] = NurseryUserRole::Client->value;
+
+                        return $data;
+                    })
+                    ->createAnother(false),
                 AttachAction::make()
                     ->preloadRecordSelect()
                     ->recordSelectOptionsQuery(fn ($query) => $query->role(['director', 'staff', 'client']))

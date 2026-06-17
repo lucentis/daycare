@@ -22,8 +22,13 @@ class RecentlyDeletedTable extends BaseWidget
             ->records(fn() => $this->recentlyDeleted())
             ->columns([
                 TextColumn::make('type')
+                    ->state(fn ($record) => class_basename($record))
                     ->badge(),
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                    ->state(fn ($record) => match (true) {
+                        $record instanceof Child => $record->full_name,
+                        default => $record->name
+                    }),
                 TextColumn::make('deleted_at')
                     ->dateTime(),
             ]);
@@ -31,26 +36,11 @@ class RecentlyDeletedTable extends BaseWidget
 
     private function recentlyDeleted(): Collection
     {
-        $users = User::onlyTrashed()->latest('deleted_at')->take(10)->get()
-            ->map(fn (User $user) => [
-                'type' => 'User',
-                'name' => $user->name,
-                'deleted_at' => $user->deleted_at,
-            ]);
+        $users = User::onlyTrashed()->latest('deleted_at')->take(10)->get();
 
-        $nurseries = Nursery::onlyTrashed()->latest('deleted_at')->take(10)->get()
-            ->map(fn (Nursery $nursery) => [
-                'type' => 'Nursery',
-                'name' => $nursery->name,
-                'deleted_at' => $nursery->deleted_at,
-            ]);
+        $nurseries = Nursery::onlyTrashed()->latest('deleted_at')->take(10)->get();
 
-        $children = Child::onlyTrashed()->latest('deleted_at')->take(10)->get()
-            ->map(fn (Child $child) => [
-                'type' => 'Child',
-                'name' => $child->full_name,
-                'deleted_at' => $child->deleted_at,
-            ]);
+        $children = Child::onlyTrashed()->latest('deleted_at')->take(10)->get();
 
         return $users->merge($nurseries)->merge($children)
             ->sortByDesc('deleted_at')

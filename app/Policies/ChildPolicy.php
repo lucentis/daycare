@@ -18,7 +18,7 @@ class ChildPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['director', 'staff', 'parent']);
+        return $user->hasAnyRole(['director', 'staff', 'parent', 'client']);
     }
 
     public function view(User $user, Child $child): bool
