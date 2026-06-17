@@ -19,26 +19,33 @@ class NurseryPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('director');
+        return $user->hasAnyRole(['director', 'client']);
     }
 
     public function view(User $user, Nursery $nursery): bool
     {
-        return $user->nurseries->contains($nursery);
+        return $user->nurseries()->withTrashed()->whereKey($nursery->id)->exists();
     }
 
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasRole('client');
     }
 
     public function update(User $user, Nursery $nursery): bool
     {
-        return $user->nurseries->contains($nursery);
+        return $user->nurseries()->withTrashed()->whereKey($nursery->id)->exists();
     }
 
     public function delete(User $user, Nursery $nursery): bool
     {
-        return false;
+        return $user->hasRole('client')
+            && $user->nurseries()->withTrashed()->whereKey($nursery->id)->exists();
+    }
+
+    public function restore(User $user, Nursery $nursery): bool
+    {
+        return $user->hasRole('client')
+            && $user->nurseries()->withTrashed()->whereKey($nursery->id)->exists();
     }
 }

@@ -70,4 +70,15 @@ class NurseryResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (! auth()->user()->hasRole('admin')) {
+            $query->whereHas('users', fn (Builder $query) => $query->where('users.id', auth()->id()));
+        }
+
+        return $query;
+    }
 }
