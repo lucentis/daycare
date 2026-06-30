@@ -44,7 +44,6 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->belongsToMany(Nursery::class)
             ->using(NurseryUser::class)
-            ->withPivot('role')
             ->withTimestamps();
     }
 

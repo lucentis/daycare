@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Nursery;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NurseryFactory extends Factory

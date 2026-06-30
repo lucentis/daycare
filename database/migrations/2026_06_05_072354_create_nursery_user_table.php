@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('nursery_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('role');
             $table->timestamps();
 
             $table->unique(['nursery_id', 'user_id']);

@@ -25,7 +25,6 @@ class Nursery extends Model
     {
         return $this->belongsToMany(User::class)
             ->using(NurseryUser::class)
-            ->withPivot('role')
             ->withTimestamps();
     }
 
@@ -33,8 +32,7 @@ class Nursery extends Model
     {
         return $this->belongsToMany(User::class)
             ->using(NurseryUser::class)
-            ->withPivot('role')
-            ->wherePivot('role', NurseryUserRole::Client)
+            ->whereHas('roles', fn (Builder $query) => $query->where('name', 'client'))
             ->withTimestamps();
     }
 
@@ -42,8 +40,7 @@ class Nursery extends Model
     {
         return $this->belongsToMany(User::class)
             ->using(NurseryUser::class)
-            ->withPivot('role')
-            ->wherePivot('role', NurseryUserRole::Director)
+            ->whereHas('roles', fn (Builder $query) => $query->where('name', 'director'))
             ->withTimestamps();
     }
 
@@ -51,10 +48,9 @@ class Nursery extends Model
     {
         return $this->belongsToMany(User::class)
             ->using(NurseryUser::class)
-            ->withPivot('role')
-            ->wherePivot('role', NurseryUserRole::Staff)
+            ->whereHas('roles', fn (Builder $query) => $query->where('name', 'staff'))
             ->withTimestamps();
-    }   
+    }
 
     public function children(): HasMany
     {

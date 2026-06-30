@@ -49,9 +49,9 @@ class NurseriesRelationManager extends RelationManager
                 TextColumn::make('name')
                     ->label('Nom')
                     ->searchable(),
-                TextColumn::make('pivot.role')
-                    ->label('Role')
-                    ->badge(),
+                // TextColumn::make('pivot.role')
+                //     ->label('Role')
+                //     ->badge(),
                 IconColumn::make('active')
                     ->label('Actif')
                     ->boolean(),
@@ -59,19 +59,20 @@ class NurseriesRelationManager extends RelationManager
             ->headerActions([
                 AttachAction::make()
                     ->preloadRecordSelect()
-                    ->schema(fn (AttachAction $action) => [
-                        $action->getRecordSelect(),
-                        Select::make('role')
-                            ->options(NurseryUserRole::class)
-                            ->required(),
-                    ]),
+                    // ->schema(fn (AttachAction $action) => [
+                    //     $action->getRecordSelect(),
+                    //     Select::make('role')
+                    //         ->options(NurseryUserRole::class)
+                    //         ->required(),
+                    // ])
+                    ,
                 CreateAction::make()
                     ->modal()
-                    ->mutateDataUsing(function (array $data): array {
-                        $data['role'] = NurseryUserRole::Client->value;
+                    // ->mutateDataUsing(function (array $data): array {
+                    //     $data['role'] = NurseryUserRole::Client->value;
 
-                        return $data;
-                    })
+                    //     return $data;
+                    // })
                     ->createAnother(false) 
                     ->visible(fn () => $this->getOwnerRecord()->hasRole('client'))
             ])

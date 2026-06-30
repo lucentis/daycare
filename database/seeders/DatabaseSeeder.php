@@ -50,12 +50,12 @@ class DatabaseSeeder extends Seeder
                     ->count(2)
                     ->hasAttached(
                         User::factory()->count(1)->director(),
-                        ['role' => NurseryUserRole::Director->value],
+                        [],
                         'directors'
                     )
                     ->hasAttached(
                         User::factory()->count(2)->staff(),
-                        ['role' => NurseryUserRole::Staff->value],
+                        [],
                         'staff'
                     )
                     ->has(
@@ -94,7 +94,7 @@ class DatabaseSeeder extends Seeder
                             ),
                         'children'
                     ),
-                ['role' => NurseryUserRole::Client->value],
+                [],
                 'nurseries'
             )->create();
     }
