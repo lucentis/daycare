@@ -5,7 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Resources\Children\ChildResource;
 use App\Filament\Resources\Nurseries\NurseryResource;
 use App\Filament\Resources\Transmissions\TransmissionResource;
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Client\Resources\Users\UserResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
